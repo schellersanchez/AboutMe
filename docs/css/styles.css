@@ -134,6 +134,13 @@ hr {
     line-height: 2;
 }
 
+.mystack-info {
+    width: 50%;
+    margin: 0 auto 50px auto;
+    line-height: 2;
+}
+
+
 .copyright {
     color: #EAF6F6;
     margin-bottom: 0;
