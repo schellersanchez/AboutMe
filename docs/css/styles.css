@@ -177,7 +177,7 @@ hr {
 
 
 
-@media only screen and (max-device-width : 640px) {
+@media (max-width: 1000px) {
 
     .bottom-island {
         position: absolute;
