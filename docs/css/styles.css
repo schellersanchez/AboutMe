@@ -174,3 +174,21 @@ hr {
         background-image: linear-gradient(to bottom, #00bcd4, #b2ebf2);
         text-decoration: none;
     }
+
+
+
+@media only screen and (max-device-width : 640px) {
+
+    .bottom-island {
+        position: absolute;
+        left: 5%;
+        width: 150px;
+    }
+
+    .top-sunset {
+        position: absolute;
+        right: 5%;
+        top: 25px;
+        width: 100px;
+    }
+}
