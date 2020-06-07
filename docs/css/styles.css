@@ -152,7 +152,10 @@ hr {
 }
 
 .questions {
-    margin-bottom: 50px;
+    /*    margin-bottom: 50px;*/
+    width: 50%;
+    margin: 0 auto 50px auto;
+    line-height: 2;
 }
 
 .btn {
