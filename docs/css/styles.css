@@ -121,11 +121,15 @@ hr {
 }
 
 
-.skill-row {
+.skill-row, .skill-row-2 {
     width: 50%;
     margin: 100px auto 100px auto;
     text-align: left;
     line-height: 2;
+}
+
+.skill-row-2 {
+    text-align: right;
 }
 
 .intro {
