@@ -201,13 +201,15 @@ a, a:visited, a:hover, i {
     #hero {
         max-height: 350px;
         min-height: 350px;
-        -webkit-background-size: cover;
+        /* -webkit-background-size: cover;
         -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        /* background-attachment: scroll; */
-        background-position-x: -250px;
-        background-position-y: -290px;
+        -o-background-size: cover; */
+        background-size:cover;
+        background-attachment: scroll; 
+        background-position-x: 0px;
+        background-position-y: 0px; 
+        background-repeat: no-repeat;
+        padding: 0;
     }
 
     #hero .section-header {
