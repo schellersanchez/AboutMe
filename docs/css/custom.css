@@ -197,11 +197,15 @@ a, a:visited, a:hover, i {
 
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 568px){
     #hero {
         max-height: 350px;
         min-height: 350px;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
+        /* background-attachment: scroll; */
         background-position-x: -250px;
         background-position-y: -290px;
     }
@@ -217,5 +221,8 @@ a, a:visited, a:hover, i {
     }
     #about-me {
         margin-top: 150px;
+    }
+    #skillsets {
+        background: #537791;
     }
 }
