@@ -198,10 +198,24 @@ a, a:visited, a:hover, i {
 }
 
 @media screen and (max-width: 400px){
+    #hero {
+        max-height: 350px;
+        min-height: 350px;
+        background-size: cover;
+        background-position-x: -250px;
+        background-position-y: -290px;
+    }
+
+    #hero .section-header {
+        position: relative;
+        bottom: -50px;
+    }
+
     #hero img {
         max-height: 275px;
+        margin:10px
     }
     #about-me {
-        margin-top: 125px;
+        margin-top: 150px;
     }
 }
