@@ -201,4 +201,7 @@ a, a:visited, a:hover, i {
     #hero img {
         max-height: 275px;
     }
+    #about-me {
+        margin-top: 125px;
+    }
 }
