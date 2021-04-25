@@ -142,9 +142,6 @@ a, a:visited, a:hover, i {
     text-align: center;
 }
 
-#contact-me .section-header{
-
-}
 
 
 
@@ -201,5 +198,7 @@ a, a:visited, a:hover, i {
 }
 
 @media screen and (max-width: 400px){
-
+    #hero img {
+        max-height: 275px;
+    }
 }
