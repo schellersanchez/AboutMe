@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinder‑Style Card</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Container fills screen on mobile, full height on desktop */
+    .card-container {
+        width: 100%;
+        max-width: 420px;
+        height: 100vh;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .card-container {
+            height: 100vh;
+            margin: auto;
+        }
+    }
+
+    .profile-img {
+        width: 100%;
+        height: 60%;
+        object-fit: cover;
+    }
+
+    .info {
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .name-age {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .occupation {
+        margin-top: 5px;
+        color: #555;
+    }
+
+    .bio {
+        margin-top: 15px;
+        line-height: 1.4;
+        color: #444;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+        position: relative;
+    }
+
+    .btn {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .x-btn {
+        background: #ff4b4b;
+        color: white;
+        position: relative;
+    }
+
+    .heart-btn {
+        background: #4cd964;
+        color: white;
+    }
+
+    .star-btn {
+        background: #007aff;
+        color: white;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card-container">
+    <img class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
+
+    <div class="info">
+        <div class="name-age">Scheller, 40</div>
+        <div class="occupation">Honolulu, HI</div>
+        <div class="bio">
+            Something something something<br>
+            Something2 something2 something2<br><br>
+            Will you be my Valentine?
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn x-btn" id="xBtn">✖</button>
+        <button class="btn star-btn">★</button>
+        <button class="btn heart-btn" id="heartBtn" disabled>❤</button>
+    </div>
+</div>
+
+<script>
+    const xBtn = document.getElementById("xBtn");
+    const heartBtn = document.getElementById("heartBtn");
+
+    let clickCount = 0;
+
+    xBtn.addEventListener("click", () => {
+        clickCount++;
+
+        // Enable heart after 3 clicks
+        if (clickCount >= 3) {
+            heartBtn.disabled = false;
+        }
+
+        // Move X button to random location inside its parent
+        const parent = xBtn.parentElement;
+        const parentRect = parent.getBoundingClientRect();
+
+        const maxX = parentRect.width - xBtn.offsetWidth;
+        const maxY = parentRect.height - xBtn.offsetHeight;
+
+        const randX = Math.random() * maxX;
+        const randY = Math.random() * maxY;
+
+        xBtn.style.position = "absolute";
+        xBtn.style.left = randX + "px";
+        xBtn.style.top = randY + "px";
+    });
+</script>
+
+</body>
+</html>
