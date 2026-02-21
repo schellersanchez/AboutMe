@@ -116,17 +116,42 @@
 
     <div class="card-container">
         <img hidden class="profile-img" src="http://camping.ehawaii.gov/camping/resources/spc,resource,57855,p,0,null,DH%20Aerial.jpg" alt="Profile">
-        <img  class="profile-img" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/d1/6f/9c/koko-crater-trail.jpg?w=700&h=-1&s=1" alt="Profile">
+        <img hidden class="profile-img" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/d1/6f/9c/koko-crater-trail.jpg?w=700&h=-1&s=1" alt="Profile">
         <img hidden class="profile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Makapu%CA%BBu_Beach.JPG/330px-Makapu%CA%BBu_Beach.JPG" alt="Profile">
         <img hidden class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
 
         <div class="info">
             <div class="name-age">Scheller, 40</div>
             <div class="occupation">Honolulu, HI</div>
-            <div class="bio">
+
+            <div hidden class="bio">
+                Something something something<br>
+                Something1 something1 something1<br><br>
+                Will you be my girlfriend?
+            </div>
+
+            <div hidden class="bio">
                 Something something something<br>
                 Something2 something2 something2<br><br>
-                Will you be my Valentine?
+                Will you be my girlfriend?
+            </div>
+
+            <div hidden class="bio">
+                Something something something<br>
+                Something3 something3 something3<br><br>
+                Will you be my girlfriend?
+            </div>
+
+            <div hidden class="bio">
+                Something something something<br>
+                Something4 something4 something4<br><br>
+                Will you be my girlfriend?
+            </div>
+
+            <div hidden class="bio">
+                Something something something<br>
+                Something5 something5 something5<br><br>
+                Will you be my girlfriend?
             </div>
         </div>
 
@@ -141,37 +166,73 @@
     const xBtn = document.getElementById("xBtn");
     const heartBtn = document.getElementById("heartBtn");
     const images = document.querySelectorAll(".profile-img");
+    const bios = document.querySelectorAll(".bio");
 
     let clickCount = 0;
+    let lastIndex = 1; // Starting with 1 because your HTML has the 2nd image (index 1) visible by default
+    let lastIndexBio = 1; // Starting with 1 because your HTML has the 2nd image (index 1) visible by default
 
     heartBtn.addEventListener("click", () => {
         clickCount++;
 
-        // 1. Hide all images first
-        images.forEach(img => img.hidden = true);
-
-        // 2. Pick a random index and show that image
-        const randomIndex = Math.floor(Math.random() * images.length);
-        images[randomIndex].hidden = false;
-
-        if (clickCount >= 3) {
+        if (clickCount >= 5) {
             //show message
         }
 
-        const parent = heartBtn.parentElement;
+        else {
+            updatePhoto();
+            updateBio();
 
-        // We use clientWidth/Height of the container
-        const maxX = parent.clientWidth - heartBtn.offsetWidth;
-        const maxY = parent.clientHeight - heartBtn.offsetHeight;
+            const parent = heartBtn.parentElement;
 
-        // Calculate random positions
-        const randX = Math.random() * maxX;
-        const randY = Math.random() * maxY;
+            // We use clientWidth/Height of the container
+            const maxX = parent.clientWidth - heartBtn.offsetWidth;
+            const maxY = parent.clientHeight - heartBtn.offsetHeight;
 
-        // Apply new coordinates
-        heartBtn.style.left = randX + "px";
-        heartBtn.style.top = randY + "px";
+            // Calculate random positions
+            const randX = Math.random() * maxX;
+            const randY = Math.random() * maxY;
+
+            // Apply new coordinates
+            heartBtn.style.left = randX + "px";
+            heartBtn.style.top = randY + "px";
+        }
+
+        
     });
+
+    function updateBio() {
+        // 1. Logic to find a NEW random index
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * bios.length);
+        } while (randomIndex === lastIndexBio); // Keep picking if it's the same as the last one
+
+        // 2. Update the tracker
+        lastIndexBio = randomIndex;
+
+        // 3. Hide all bio and show the new one
+        bios.forEach(bio => bio.hidden = true);
+        bios[randomIndex].hidden = false;
+    }
+
+    function updatePhoto(){
+        // 1. Logic to find a NEW random index
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * images.length);
+        } while (randomIndex === lastIndex); // Keep picking if it's the same as the last one
+
+        // 2. Update the tracker
+        lastIndex = randomIndex;
+
+        // 3. Hide all images and show the new one
+        images.forEach(img => img.hidden = true);
+        images[randomIndex].hidden = false;
+    }
+
+    updatePhoto();
+    updateBio();
 </script>
 
 </body>
