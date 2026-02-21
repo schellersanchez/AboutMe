@@ -114,34 +114,45 @@
 
 <body>
 
-<div class="card-container">
-    <img class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
+    <div class="card-container">
+        <img hidden class="profile-img" src="http://camping.ehawaii.gov/camping/resources/spc,resource,57855,p,0,null,DH%20Aerial.jpg" alt="Profile">
+        <img  class="profile-img" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/d1/6f/9c/koko-crater-trail.jpg?w=700&h=-1&s=1" alt="Profile">
+        <img hidden class="profile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Makapu%CA%BBu_Beach.JPG/330px-Makapu%CA%BBu_Beach.JPG" alt="Profile">
+        <img hidden class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
 
-    <div class="info">
-        <div class="name-age">Scheller, 40</div>
-        <div class="occupation">Honolulu, HI</div>
-        <div class="bio">
-            Something something something<br>
-            Something2 something2 something2<br><br>
-            Will you be my Valentine?
+        <div class="info">
+            <div class="name-age">Scheller, 40</div>
+            <div class="occupation">Honolulu, HI</div>
+            <div class="bio">
+                Something something something<br>
+                Something2 something2 something2<br><br>
+                Will you be my Valentine?
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn x-btn" id="xBtn">✖</button>
+            <button class="btn star-btn" disabled>★</button>
+            <button class="btn heart-btn" id="heartBtn" enabled>❤</button>
         </div>
     </div>
-
-    <div class="buttons">
-        <button class="btn x-btn" id="xBtn">✖</button>
-        <button class="btn star-btn" disabled >★</button>
-        <button class="btn heart-btn" id="heartBtn" enabled>❤</button>
-    </div>
-</div>
 
 <script>
     const xBtn = document.getElementById("xBtn");
     const heartBtn = document.getElementById("heartBtn");
+    const images = document.querySelectorAll(".profile-img");
 
     let clickCount = 0;
 
     heartBtn.addEventListener("click", () => {
         clickCount++;
+
+        // 1. Hide all images first
+        images.forEach(img => img.hidden = true);
+
+        // 2. Pick a random index and show that image
+        const randomIndex = Math.floor(Math.random() * images.length);
+        images[randomIndex].hidden = false;
 
         if (clickCount >= 3) {
             //show message
