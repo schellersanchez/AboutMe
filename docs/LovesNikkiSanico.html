@@ -20,7 +20,7 @@
         .card-container {
             width: 100%;
             max-width: 420px;
-            height: 100vh;
+            height: 120vh;
             background: white;
             display: flex;
             flex-direction: column;
@@ -31,7 +31,7 @@
 
         @media (min-width: 768px) {
             .card-container {
-                height: 90vh; /* Changed slightly for better desktop look */
+                height: 100vh; /* Changed slightly for better desktop look */
                 border-radius: 15px;
                 margin: auto;
             }
@@ -45,7 +45,7 @@
 
         .info {
             padding: 20px;
-            flex-grow: 1;
+            /*flex-grow: 1;*/
         }
 
         .name-age {
@@ -189,7 +189,7 @@
 
         <div class="info">
             <div class="name-age">Scheller, 40</div>
-            <div class="occupation">Honolulu, HI</div>
+            <div class="occupation"><b>Honolulu, HI</b></div>
 
             <div hidden class="bio">
                 I like eating and spending time <br>
@@ -209,7 +209,7 @@
                 Will you be my girlfriend?
             </div>
             <div hidden class="bio-final" id="bioFinal">
-                Hi Nikki Cutie, <br />
+                Hi Nikki Cutie, <br /><br />
                 I am really in love with you. I love everything about you. I really want to take this to the next stage. I really want you to be mine, and I want to be yours.
                 <br> <br>
                 Will you be my girlfriend?
