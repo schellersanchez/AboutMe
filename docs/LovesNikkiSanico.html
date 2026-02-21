@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinder‑Style Card</title>
+    <title>Dear Nikki</title>
 
     <style>
         body {
@@ -37,7 +37,7 @@
             }
         }
 
-        .profile-img {
+        .profile-img, .profile-img-final {
             width: 100%;
             height: 60%;
             object-fit: cover;
@@ -58,7 +58,7 @@
             color: #555;
         }
 
-        .bio {
+        .bio, .bio-final {
             margin-top: 15px;
             line-height: 1.4;
             color: #444;
@@ -179,28 +179,39 @@
             </div>
         </div>
 
-        <img hidden class="profile-img" src="http://camping.ehawaii.gov/camping/resources/spc,resource,57855,p,0,null,DH%20Aerial.jpg" alt="Profile">
-        <img hidden class="profile-img" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/d1/6f/9c/koko-crater-trail.jpg?w=700&h=-1&s=1" alt="Profile">
-        <img hidden class="profile-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Makapu%CA%BBu_Beach.JPG/330px-Makapu%CA%BBu_Beach.JPG" alt="Profile">
-        <img hidden class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-golf.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-golf-2.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-sunset-back.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-manoa-falls.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-moon.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-golf-card.jpg" alt="Profile">
+        <img hidden class="profile-img-final" id="imgFinal" src="./images/scheller-sunset.jpg" alt="Profile">
 
         <div class="info">
             <div class="name-age">Scheller, 40</div>
             <div class="occupation">Honolulu, HI</div>
 
             <div hidden class="bio">
-                Something something something<br>
-                Something1 something1 something1<br><br>
-                Will you be my girlfriend?
+                I like eating and spending time <br>
+                with family and friends<br><br>
+                Nikki - will you be my girlfriend?
             </div>
             <div hidden class="bio">
-                Something something something<br>
-                Something2 something2 something2<br><br>
-                Will you be my girlfriend?
+                Nikki, are you Irish?<br>
+                Because Irish you were my girlfriend!<br><br>
+                Will you be mine?
             </div>
             <div hidden class="bio">
-                Something something something<br>
-                Something3 something3 something3<br><br>
+                Knock Knock!
+                Who is there?<br>
+                African. African who?<br>
+                African LOVE how u make me smile<br> <br>
+                Will you be my girlfriend?
+            </div>
+            <div hidden class="bio-final" id="bioFinal">
+                Hi Nikki Cutie, <br />
+                I am really in love with you. I love everything about you. I really want to take this to the next stage. I really want you to be mine, and I want to be yours.
+                <br> <br>
                 Will you be my girlfriend?
             </div>
         </div>
@@ -218,6 +229,8 @@
         const modal = document.getElementById("modalOverlay");
         const modalCancel = document.getElementById("modalCancel");
         const modalConfirm = document.getElementById("modalConfirm");
+        const imgFinal = document.getElementById("imgFinal");
+        const bioFinal = document.getElementById("bioFinal");
         const images = document.querySelectorAll(".profile-img");
         const bios = document.querySelectorAll(".bio");
 
@@ -244,12 +257,21 @@
         // --- HEART BUTTON LOGIC ---
         heartBtn.addEventListener("click", () => {
             clickCount++;
-            if (clickCount >= 5) {
+            if (clickCount == 6) {
                 //alert("Success!");
                 xBtn.disabled = true;
                 heartBtn.style.left = "auto";
                 heartBtn.style.top = "auto";
-            } else {
+
+                images.forEach(bio => bio.hidden = true);
+                bios.forEach(bio => bio.hidden = true);
+                imgFinal.hidden = false;
+                bioFinal.hidden = false;
+            }
+            else if (clickCount > 6) {
+                heartBtn.disabled = true;
+            }
+            else {
                 updatePhoto();
                 updateBio();
                 const parent = heartBtn.parentElement;
