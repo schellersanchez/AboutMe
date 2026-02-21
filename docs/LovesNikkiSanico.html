@@ -65,9 +65,11 @@
 
     .buttons {
         display: flex;
-        justify-content: space-around;
+        justify-content: center; /* Center the star by default */
+        align-items: center;
         padding: 20px;
         position: relative;
+        height: 100px;
     }
 
     .btn {
@@ -78,27 +80,34 @@
         font-size: 28px;
         cursor: pointer;
         transition: 0.2s;
+        z-index: 10;
     }
 
-    .btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-
+    /* Start the X-button with absolute positioning or fixed width 
+       to prevent layout shifting */
     .x-btn {
         background: #ff4b4b;
         color: white;
-        position: relative;
-    }
-
-    .heart-btn {
-        background: #4cd964;
-        color: white;
+        position: absolute;
+        left: 20px; /* Initial position */
     }
 
     .star-btn {
         background: #007aff;
         color: white;
+        /* No special positioning needed; flex-center handles it */
+    }
+
+    .heart-btn {
+        background: #4cd964;
+        color: white;
+        position: absolute;
+        right: 20px; /* Keep it locked to the right */
+    }
+
+    .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
     }
 </style>
 </head>
@@ -120,8 +129,8 @@
 
     <div class="buttons">
         <button class="btn x-btn" id="xBtn">✖</button>
-        <button class="btn star-btn">★</button>
-        <button class="btn heart-btn" id="heartBtn" disabled>❤</button>
+        <button class="btn star-btn" disabled >★</button>
+        <button class="btn heart-btn" id="heartBtn" enabled>❤</button>
     </div>
 </div>
 
@@ -131,27 +140,26 @@
 
     let clickCount = 0;
 
-    xBtn.addEventListener("click", () => {
+    heartBtn.addEventListener("click", () => {
         clickCount++;
 
-        // Enable heart after 3 clicks
         if (clickCount >= 3) {
-            heartBtn.disabled = false;
+            //show message
         }
 
-        // Move X button to random location inside its parent
-        const parent = xBtn.parentElement;
-        const parentRect = parent.getBoundingClientRect();
+        const parent = heartBtn.parentElement;
 
-        const maxX = parentRect.width - xBtn.offsetWidth;
-        const maxY = parentRect.height - xBtn.offsetHeight;
+        // We use clientWidth/Height of the container
+        const maxX = parent.clientWidth - heartBtn.offsetWidth;
+        const maxY = parent.clientHeight - heartBtn.offsetHeight;
 
+        // Calculate random positions
         const randX = Math.random() * maxX;
         const randY = Math.random() * maxY;
 
-        xBtn.style.position = "absolute";
-        xBtn.style.left = randX + "px";
-        xBtn.style.top = randY + "px";
+        // Apply new coordinates
+        heartBtn.style.left = randX + "px";
+        heartBtn.style.top = randY + "px";
     });
 </script>
 
