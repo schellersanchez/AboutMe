@@ -1,159 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tinder‑Style Card</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Nikki</title>
 
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #f2f2f2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-    }
-
-    /* Container fills screen on mobile, full height on desktop */
-    .card-container {
-        width: 100%;
-        max-width: 420px;
-        height: 100vh;
-        background: white;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 0 20px rgba(0,0,0,0.15);
-        overflow: hidden;
-    }
-
-    @media (min-width: 768px) {
-        .card-container {
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            margin: auto;
+            font-family: Arial, sans-serif;
         }
-    }
 
-    .profile-img {
-        width: 100%;
-        height: 60%;
-        object-fit: cover;
-    }
+        .card-container {
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative; /* Added for modal containment if needed */
+        }
 
-    .info {
-        padding: 20px;
-        flex-grow: 1;
-    }
+        @media (min-width: 768px) {
+            .card-container {
+                height: 90vh; /* Changed slightly for better desktop look */
+                border-radius: 15px;
+                margin: auto;
+            }
+        }
 
-    .name-age {
-        font-size: 28px;
-        font-weight: bold;
-    }
+        .profile-img, .profile-img-final {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+        }
 
-    .occupation {
-        margin-top: 5px;
-        color: #555;
-    }
+        .info {
+            padding: 20px;
+            flex-grow: 1;
+        }
 
-    .bio {
-        margin-top: 15px;
-        line-height: 1.4;
-        color: #444;
-    }
+        .name-age {
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    .buttons {
-        display: flex;
-        justify-content: space-around;
-        padding: 20px;
-        position: relative;
-    }
+        .occupation {
+            margin-top: 5px;
+            color: #555;
+        }
 
-    .btn {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        border: none;
-        font-size: 28px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+        .bio, .bio-final {
+            margin-top: 15px;
+            line-height: 1.4;
+            color: #444;
+        }
 
-    .btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            height: 100px;
+        }
 
-    .x-btn {
-        background: #ff4b4b;
-        color: white;
-        position: relative;
-    }
+        .btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 10;
+        }
 
-    .heart-btn {
-        background: #4cd964;
-        color: white;
-    }
+        .x-btn {
+            background: #ff4b4b;
+            color: white;
+            position: absolute;
+            left: 20px;
+        }
 
-    .star-btn {
-        background: #007aff;
-        color: white;
-    }
-</style>
+        .star-btn {
+            background: #007aff;
+            color: white;
+        }
+
+        .heart-btn {
+            background: #4cd964;
+            color: white;
+            position: absolute;
+            right: 20px;
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 80%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+            .modal-content h2 {
+                margin-top: 0;
+                font-size: 22px;
+            }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .confirm-btn, .cancel-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .confirm-btn {
+            background: #ff4b4b;
+            color: white;
+        }
+
+        .cancel-btn {
+            /*background: #e0e0e0;*/
+            /*color: #333;*/
+            background: #ff4b4b;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="card-container">
-    <img class="profile-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Profile">
+    <div class="card-container">
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal-content">
+                <h2>What! Are you for real?</h2>
+                <p></p>
+                <div class="modal-btns">
+                    <button hidden class="confirm-btn" id="modalConfirm">Yes</button>
+                    <button class="cancel-btn" id="modalCancel">No, just kidding!</button>
+                </div>
+            </div>
+        </div>
 
-    <div class="info">
-        <div class="name-age">Scheller, 40</div>
-        <div class="occupation">Honolulu, HI</div>
-        <div class="bio">
-            Something something something<br>
-            Something2 something2 something2<br><br>
-            Will you be my Valentine?
+        <img hidden class="profile-img" src="./images/scheller-golf.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-golf-2.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-sunset-back.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-manoa-falls.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-moon.jpg" alt="Profile">
+        <img hidden class="profile-img" src="./images/scheller-golf-card.jpg" alt="Profile">
+        <img hidden class="profile-img-final" id="imgFinal" src="./images/scheller-sunset.jpg" alt="Profile">
+
+        <div class="info">
+            <div class="name-age">Scheller, 40</div>
+            <div class="occupation">Honolulu, HI</div>
+
+            <div hidden class="bio">
+                I like eating and spending time <br>
+                with family and friends<br><br>
+                Nikki - will you be my girlfriend?
+            </div>
+            <div hidden class="bio">
+                Nikki, are you Irish?<br>
+                Because Irish you were my girlfriend!<br><br>
+                Will you be mine?
+            </div>
+            <div hidden class="bio">
+                Knock Knock!
+                Who is there?<br>
+                African. African who?<br>
+                African LOVE how u make me smile<br> <br>
+                Will you be my girlfriend?
+            </div>
+            <div hidden class="bio-final" id="bioFinal">
+                Hi Nikki Cutie, <br />
+                I am really in love with you. I love everything about you. I really want to take this to the next stage. I really want you to be mine, and I want to be yours.
+                <br> <br>
+                Will you be my girlfriend?
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn x-btn" id="xBtn">✖</button>
+            <button class="btn star-btn" disabled>★</button>
+            <button class="btn heart-btn" id="heartBtn">❤</button>
         </div>
     </div>
 
-    <div class="buttons">
-        <button class="btn x-btn" id="xBtn">✖</button>
-        <button class="btn star-btn">★</button>
-        <button class="btn heart-btn" id="heartBtn" disabled>❤</button>
-    </div>
-</div>
+    <script>
+        const xBtn = document.getElementById("xBtn");
+        const heartBtn = document.getElementById("heartBtn");
+        const modal = document.getElementById("modalOverlay");
+        const modalCancel = document.getElementById("modalCancel");
+        const modalConfirm = document.getElementById("modalConfirm");
+        const imgFinal = document.getElementById("imgFinal");
+        const bioFinal = document.getElementById("bioFinal");
+        const images = document.querySelectorAll(".profile-img");
+        const bios = document.querySelectorAll(".bio");
 
-<script>
-    const xBtn = document.getElementById("xBtn");
-    const heartBtn = document.getElementById("heartBtn");
+        let clickCount = 0;
+        let lastIndex = -1;
+        let lastIndexBio = -1;
 
-    let clickCount = 0;
+        // --- X BUTTON MODAL LOGIC ---
+        xBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+            updatePhoto();
+            updateBio();
+        });
 
-    xBtn.addEventListener("click", () => {
-        clickCount++;
+        modalCancel.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
 
-        // Enable heart after 3 clicks
-        if (clickCount >= 3) {
-            heartBtn.disabled = false;
+        modalConfirm.addEventListener("click", () => {
+            alert("Action confirmed!"); // Or whatever you want to happen
+            modal.style.display = "none";
+        });
+
+        // --- HEART BUTTON LOGIC ---
+        heartBtn.addEventListener("click", () => {
+            clickCount++;
+            if (clickCount == 6) {
+                //alert("Success!");
+                xBtn.disabled = true;
+                heartBtn.style.left = "auto";
+                heartBtn.style.top = "auto";
+
+                images.forEach(bio => bio.hidden = true);
+                bios.forEach(bio => bio.hidden = true);
+                imgFinal.hidden = false;
+                bioFinal.hidden = false;
+            }
+            else if (clickCount > 6) {
+                heartBtn.disabled = true;
+            }
+            else {
+                updatePhoto();
+                updateBio();
+                const parent = heartBtn.parentElement;
+                const maxX = parent.clientWidth - heartBtn.offsetWidth;
+                const maxY = parent.clientHeight - heartBtn.offsetHeight;
+                heartBtn.style.left = (Math.random() * maxX) + "px";
+                heartBtn.style.top = (Math.random() * maxY) + "px";
+            }
+        });
+
+        function updateBio() {
+            let randomIndex;
+            do { randomIndex = Math.floor(Math.random() * bios.length); }
+            while (randomIndex === lastIndexBio);
+            lastIndexBio = randomIndex;
+            bios.forEach(bio => bio.hidden = true);
+            bios[randomIndex].hidden = false;
         }
 
-        // Move X button to random location inside its parent
-        const parent = xBtn.parentElement;
-        const parentRect = parent.getBoundingClientRect();
+        function updatePhoto() {
+            let randomIndex;
+            do { randomIndex = Math.floor(Math.random() * images.length); }
+            while (randomIndex === lastIndex);
+            lastIndex = randomIndex;
+            images.forEach(img => img.hidden = true);
+            images[randomIndex].hidden = false;
+        }
 
-        const maxX = parentRect.width - xBtn.offsetWidth;
-        const maxY = parentRect.height - xBtn.offsetHeight;
-
-        const randX = Math.random() * maxX;
-        const randY = Math.random() * maxY;
-
-        xBtn.style.position = "absolute";
-        xBtn.style.left = randX + "px";
-        xBtn.style.top = randY + "px";
-    });
-</script>
+        updatePhoto();
+        updateBio();
+    </script>
 
 </body>
 </html>
